@@ -88,6 +88,17 @@ class Ant():
   self.route.append(self.start)
   self.cost = 0
   
+ def ProbabilitySelect(self, prob):
+  #prob[i] is the probability of selecting item i (i = 0,1,...,n-1), sum(prob) = 1
+  sel = 0
+  r = rd.random()
+  v = 0
+  for i,pi in enumerate(prob):
+   v += pi
+   if v >= r:
+    sel = i
+    break    
+  return sel 
   
  def FindNext(self):
   D = 0
@@ -101,13 +112,8 @@ class Ant():
    p[i] = (self.aco.pheromone[self.current][i]**self.aco.alpha)*(self.eta[self.current][i]**self.aco.beta)/D 
     
   # apply roulette wheel
-  sel = 0
-  r = rd.random()
-  for i,pi in enumerate(p):
-   r -= pi 
-   if r <= 0:
-    sel = i
-    break 
+  sel = self.ProbabilitySelect(p)
+  
   self.Candidates.remove(sel)
   self.route.append(sel)
   self.cost += self.c[self.current][sel]  
