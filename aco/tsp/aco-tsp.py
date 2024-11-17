@@ -11,6 +11,17 @@ def Input():
   
  return n,c 
 
+def InputFile(filename):
+ with open(filename,'r') as f:    
+  [n] = [int(x) for x in f.readline().split()]
+  c = []
+  for i in range(n):
+   row = [int(x) for x in f.readline().split()]
+   c.append(row)
+  
+  return n,c 
+
+
 def InputEuclide(filename):
  with open(filename,'r') as f:
   [n] = [int(x) for x in f.readline().split()]
@@ -27,10 +38,7 @@ def InputEuclide(filename):
     c[i][j] = math.sqrt((x[i]-x[j])**2 + (y[i] - y[j])**2)
   return n,c 
   
-#n,c = Input()
-n,c = InputEuclide('euclide-31.txt')
 
-#print(c)
 
 class ACO():
  def __init__(self, c, nbAnts: int, generations: int, alpha: float, beta: float, rho: float):
@@ -75,9 +83,9 @@ class ACO():
    
 class Ant():
  def __init__(self, aco: ACO):
-  self.aco = aco 
-  self.n = aco.n
-  self.c = aco.c 
+  self.aco = aco # global object describing input params
+  self.n = aco.n # number of points
+  self.c = aco.c # distance matrix
   self.pheromoneDelta = [[0 for i in range(self.n)] for j in range(self.n)]
   self.eta = [[0 if self.c[i][j]==0 else 1/(self.c[i][j]) for i in range(self.n)] for j in range(self.n)]
   self.route = []
@@ -137,5 +145,10 @@ class Ant():
    nj = self.route[i]
    self.pheromoneDelta[j][nj] = 1.0/fBest 
    
-aco = ACO(c,10,200,1,10,0.5)
+#n,c = Input()
+n,c = InputFile('n-400.txt')
+#n,c = InputEuclide('euclide-31.txt')
+
+#print(c)   
+aco = ACO(c,10,20,1,10,0.5)
 aco.Solve()   
