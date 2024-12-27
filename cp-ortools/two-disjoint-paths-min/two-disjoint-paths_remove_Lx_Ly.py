@@ -4,7 +4,6 @@ from ortools.sat.python import cp_model
 def Input():
  [n,m] = [int(x) for x in sys.stdin.readline().split()]
  E = []
- 
  InA = [[] for i in range(n+1)]
 
   
