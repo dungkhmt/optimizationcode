@@ -19292,8 +19292,6 @@ class Point {
         System.out.print(Math.toDegrees(Math.atan2(-0.5, 1)));
     }
 }
-
-
 interface InvariantVR {
     /*
      * return the VRPManager
@@ -21220,6 +21218,575 @@ class OnePointMove implements IVRMove {
         return y;
     }
 }
+class AddOnePoint implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private Point y;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+
+    public AddOnePoint(VRManager mgr, LexMultiValues eval, Point x, Point y, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = NE;
+    }
+    public AddOnePoint(VRManager mgr, LexMultiValues eval, Point x, Point y){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = null;
+    }
+
+
+
+    public void move() {
+        // TODO Auto-generated method stub
+        System.out.println(name() + "::move(" + x + "," + y + ") " + eval);
+        mgr.performAddOnePoint(x, y);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        // TODO Auto-generated method stub
+        return eval;
+    }
+
+
+    public INeighborhoodExplorer getNeighborhoodExplorer() {
+        // TODO Auto-generated method stub
+        return NE;
+    }
+
+
+    public String name() {
+        // TODO Auto-generated method stub
+        return "AddOnePoint";
+    }
+
+    public Point getX() {
+        return x;
+    }
+    public Point getY() {
+        return y;
+    }
+}
+class AddRemovePoints implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private Point y;
+    private Point z;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+
+    public AddRemovePoints(VRManager mgr, LexMultiValues eval, Point x, Point y, Point z, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.NE = NE;
+    }
+    public AddRemovePoints(VRManager mgr, LexMultiValues eval, Point x, Point y, Point z){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.NE = null;
+    }
+
+
+    public void move() {
+        // TODO Auto-generated method stub
+        System.out.println(name() + "::move(" + x + "," + y + "," + z + ") " + eval);
+        mgr.performAddRemovePoints(x, y, z);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        // TODO Auto-generated method stub
+        return eval;
+    }
+
+
+    public INeighborhoodExplorer getNeighborhoodExplorer() {
+        // TODO Auto-generated method stub
+        return NE;
+    }
+
+
+    public String name() {
+        // TODO Auto-generated method stub
+        return "AddRemovePoints";
+    }
+
+    public Point getX() {
+        return x;
+    }
+    public Point getY() {
+        return y;
+    }
+    public Point getZ() {
+        return z;
+    }
+}
+class CrossExchangeMove implements IVRMove {
+
+    private VRManager mgr;
+    private Point x1;
+    private Point y1;
+    private Point x2;
+    private Point y2;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public CrossExchangeMove(VRManager mgr, LexMultiValues eval, Point x1, Point y1, Point x2, Point y2, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.NE = NE;
+    }
+    public CrossExchangeMove(VRManager mgr, LexMultiValues eval, Point x1, Point y1, Point x2, Point y2){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.y1 = y1;
+        this.x2 = x2;
+        this.y2 = y2;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "CrossExchangeMove";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x1 + "," + y1 + "," + x2 + "," + y2 + ") " + eval);
+        mgr.performCrossExchangeMove(x1, y1, x2, y2);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return NE;
+    }
+
+    public Point getX1(){ return x1;}
+    public Point getY1(){ return y1;}
+    public Point getX2(){ return x2;}
+    public Point getY2(){ return y2;}
+}
+class MoveTwoPointsMove implements IVRMove {
+
+    private VRManager mgr;
+    private Point x1;
+    private Point x2;
+    private Point y1;
+    private Point y2;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+
+    public MoveTwoPointsMove(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y1, Point y2, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.NE = NE;
+    }
+    public MoveTwoPointsMove(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y1, Point y2){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.NE = null;
+    }
+    public MoveTwoPointsMove(VRManager mgr, double eval, Point x1, Point x2, Point y1, Point y2){
+        this.mgr = mgr;
+        this.eval = new LexMultiValues(); this.eval.add(eval);
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y1 = y1;
+        this.y2 = y2;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "MoveTwoPointMove";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x1 + "," + x2 + "," + y1 + "," + y2 + ") " + eval);
+        mgr.performTwoPointsMove(x1, x2, y1, y2);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return NE;
+    }
+
+    public Point getX1(){ return x1;}
+    public Point getX2(){ return x2;}
+    public Point getY1(){ return y1;}
+    public Point getY2(){ return y2;}
+}
+class OrOptMove1 implements IVRMove {
+
+    private VRManager mgr;
+    private Point x1;
+    private Point x2;
+    private Point y;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public OrOptMove1(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y = y;
+        this.NE = NE;
+    }
+    public OrOptMove1(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y = y;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "OrOptMove1";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x1 + ", " + x2 + ", " + y + ") " + eval);
+        mgr.performOrOptMove1(x1, x2, y);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return this.NE;
+    }
+
+    public Point getX1(){ return x1;}
+    public Point getX2(){ return x2;}
+    public Point getY(){ return y;}
+}
+class OrOptMove2 implements IVRMove {
+
+    private VRManager mgr;
+    private Point x1;
+    private Point x2;
+    private Point y;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public OrOptMove2(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y = y;
+        this.NE = NE;
+    }
+    public OrOptMove2(VRManager mgr, LexMultiValues eval, Point x1, Point x2, Point y){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x1 = x1;
+        this.x2 = x2;
+        this.y = y;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "OrOptMove2";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x1 + ", " + x2 + ", " + y + ") " + eval);
+        mgr.performOrOptMove2(x1, x2, y);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return this.NE;
+    }
+    public Point getX1(){ return x1;}
+    public Point getX2(){ return x2;}
+    public Point getY(){ return y;}
+}
+class TwoOptMove implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private Point y;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public TwoOptMove(VRManager mgr, LexMultiValues eval, Point x, Point y, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = NE;
+    }
+    public TwoOptMove(VRManager mgr, LexMultiValues eval, Point x, Point y){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "TwoOptMove";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x + "," + y + ") " + eval);
+        mgr.performTwoOptMove1(x, y);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return NE;
+    }
+    public Point getX(){ return x;}
+    public Point getY(){ return y;}
+}
+class ThreeOptMove implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private Point y;
+    private Point z;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public ThreeOptMove(VRManager mgr, LexMultiValues eval, Point x, Point y, Point z, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.NE = NE;
+    }
+    public ThreeOptMove(VRManager mgr, LexMultiValues eval, Point x, Point y, Point z){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.z = z;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "ThreeOptMove1";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x + "," + y + "," + z + ") " + eval);
+        mgr.performThreeOptMove1(x, y, z);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return this.NE;
+    }
+
+}
+
+class RemoveOnePoint implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+
+    public RemoveOnePoint(VRManager mgr, LexMultiValues eval, Point x, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.NE = NE;
+    }
+    public RemoveOnePoint(VRManager mgr, LexMultiValues eval, Point x){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.NE = null;
+    }
+
+
+    @Override
+    public void move() {
+        // TODO Auto-generated method stub
+        System.out.println(name() + "::move(" + x +  ") " + eval);
+        mgr.performRemoveOnePoint(x);
+        if(NE != null) NE.performMove(this);
+    }
+
+    @Override
+    public LexMultiValues evaluation() {
+        // TODO Auto-generated method stub
+        return eval;
+    }
+
+    @Override
+    public INeighborhoodExplorer getNeighborhoodExplorer() {
+        // TODO Auto-generated method stub
+        return NE;
+    }
+
+    @Override
+    public String name() {
+        // TODO Auto-generated method stub
+        return "RemoveOnePoint";
+    }
+
+    public Point getX() {
+        return x;
+    }
+}
+class TwoOptMoveOneRoute implements IVRMove {
+
+    private VRManager mgr;
+    private Point x;
+    private Point y;
+    private LexMultiValues eval;
+    private INeighborhoodExplorer NE;
+    public TwoOptMoveOneRoute(VRManager mgr, LexMultiValues eval, Point x, Point y, INeighborhoodExplorer NE){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = NE;
+    }
+    public TwoOptMoveOneRoute(VRManager mgr, LexMultiValues eval, Point x, Point y){
+        this.mgr = mgr;
+        this.eval = eval;
+        this.x = x;
+        this.y = y;
+        this.NE = null;
+    }
+
+    public String name(){
+        return "TwoOptMoveOneRoute";
+    }
+
+
+    public void move() {
+        System.out.println(name() + "::move(" + x + "," + y + ") " + eval);
+        mgr.performTwoOptMoveOneRoute(x, y);
+        if(NE != null) NE.performMove(this);
+    }
+
+
+    public LexMultiValues evaluation() {
+        return eval;
+    }
+
+    public INeighborhoodExplorer getNeighborhoodExplorer(){
+        return NE;
+    }
+    public Point getX(){ return x;}
+    public Point getY(){ return y;}
+}
+
+class FirstImprovementOnePointMoveExplorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementOnePointMoveExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementOnePointMoveExplorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y : XR.getAllPoints()) {
+                if(N.size() > 0) break;
+                //System.out.println(name() + "::exploreNeighborhood, consider (" + x.ID + "," + y.ID + " of route " + XR.route(y) + ", index " + XR.index(y) + ")");
+                if (XR.checkPerformOnePointMove(x, y)) {
+                    //System.out.println(name() + "::exploreNeighborhood, accept (" + x.ID + "," + y.ID + " of route " + XR.route(y) + ", index " + XR.index(y) + ")");
+                    LexMultiValues eval = F.evaluateOnePointMove(x, y);
+                    //System.out.println(name() + "::exploreNeighborhood, accept (" + x.ID + "," + y.ID + " of route " + XR.route(y) + ", index " + XR.index(y) + ") eval = " + eval.toString());
+                    if(eval.lt(bestEval)){
+                        N.add(new OnePointMove(mgr, eval, x, y, this));
+                    }
+                }
+            }
+        }
+        //System.out.println(name() + "::exploreNeighborhood finished");
+    }
+    public String name(){
+        return "FirstImprovementOnePointMoveExplorer";
+    }
+    public void performMove(IVRMove m){
+        // DO NOTHING
+    }
+}
 
 class GreedyOnePointMoveExplorer implements INeighborhoodExplorer {
     private VRManager mgr;
@@ -21285,8 +21852,2340 @@ class GreedyOnePointMoveExplorer implements INeighborhoodExplorer {
         // DO NOTHING
     }
 }
+class FirstImprovementAddOnePointMoveExplorer implements INeighborhoodExplorer {
+
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementAddOnePointMoveExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public String name(){
+        return "FirstImprovementAddOnePointMove";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y : XR.getAllPoints()) {
+                if(N.size() > 0) break;
+                if (XR.checkPerformAddOnePoint(x, y)) {
+                    LexMultiValues eval = F.evaluateAddOnePoint(x, y);
+                    if (eval.lt(bestEval)) {
+                        N.add(new AddOnePoint(mgr, eval, x, y));
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void performMove(IVRMove m) {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+class GreedyAddOnePointMoveExplorer implements INeighborhoodExplorer {
+
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+
+    public GreedyAddOnePointMoveExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+
+    }
+    public GreedyAddOnePointMoveExplorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            for (Point y : XR.getAllPoints()) {
+                if (XR.checkPerformAddOnePoint(x, y)) {
+                    LexMultiValues eval = F.evaluateAddOnePoint(x, y);
+                    if (eval.lt(bestEval)) {
+                        N.clear();
+                        N.add(new AddOnePoint(mgr, eval, x, y, this));
+                        bestEval.set(eval);
+                    } else if (eval.eq(bestEval)) {
+                        N.add(new AddOnePoint(mgr, eval, x, y, this));
+                    }
+                    if(firstImprovement){
+                        if(eval.lt(0)) return;
+                    }
+
+                }
+            }
+        }
+    }
+
+    public String name(){
+        return "GreedyAddOnePointMoveExplorer";
+    }
+    public void performMove(IVRMove m) {
+        // TODO Auto-generated method stub
+
+    }
+
+}
+class FirstImprovementCrossExchangeMoveExplorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementCrossExchangeMoveExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementCrossExchangeMoveExplorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i < XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j < XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                    if(N.size() > 0) break;
+                    for (Point y1 = XR.next(x1); y1 != XR.getTerminatingPointOfRoute(i); y1 = XR.next(y1)) {
+                        if(N.size() > 0) break;
+                        for (Point x2 = XR.next(XR.getStartingPointOfRoute(j)); x2 != XR.getTerminatingPointOfRoute(j); x2 = XR.next(x2)) {
+                            if(N.size() > 0) break;
+                            for (Point y2 = XR.next(x2); y2 != XR.getTerminatingPointOfRoute(j); y2 = XR.next(y2)) {
+                                if(N.size() > 0) break;
+                                if (XR.checkPerformCrossExchangeMove(x1, y1, x2, y2)) {
+                                    LexMultiValues eval = F.evaluateCrossExchangeMove(x1, y1, x2, y2);
+                                    //System.out.println(name() + "::exploreNeighborhood (" + x1.ID + "," +
+                                    //y1.ID + "," + x2.ID + "," + y2.ID + ", eval = " + eval.toString());
+                                    if (eval.lt(bestEval)) {
+                                        N.add(new CrossExchangeMove(mgr, eval, x1, y1, x2, y2));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //System.out.println(name() + "::exploreNeighborhood finished");
+    }
+
+    public String name(){
+        return "FirstImprovementCrossExchangeMoveExplorer";
+    }
+    public void performMove(IVRMove m){
+        // DO NOTHING
+    }
+}
+class GreedyCrossExchangeMoveExplorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyCrossExchangeMoveExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyCrossExchangeMoveExplorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyCrossExchangeMoveExplorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        // TODO Auto-generated method stub
+        for (int i = 1; i < XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j < XR.getNbRoutes(); j++) {
+                for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                    for (Point y1 = XR.next(x1); y1 != XR.getTerminatingPointOfRoute(i); y1 = XR.next(y1)) {
+                        for (Point x2 = XR.next(XR.getStartingPointOfRoute(j)); x2 != XR.getTerminatingPointOfRoute(j); x2 = XR.next(x2)) {
+                            for (Point y2 = XR.next(x2); y2 != XR.getTerminatingPointOfRoute(j); y2 = XR.next(y2)) {
+                                if (XR.checkPerformCrossExchangeMove(x1, y1, x2, y2)) {
+                                    LexMultiValues eval = F.evaluateCrossExchangeMove(x1, y1, x2, y2);
+                                    if (eval.lt(bestEval)) {
+                                        N.clear();
+                                        N.add(new CrossExchangeMove(mgr, eval, x1, y1, x2, y2, this));
+                                        bestEval.set(eval);
+                                    } else if (eval.eq(bestEval)) {
+                                        N.add(new CrossExchangeMove(mgr, eval, x1, y1, x2, y2, this));
+                                    }
+                                    if(firstImprovement){
+                                        if(eval.lt(0)) return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        //System.out.println(name() + "::exploreNeighborhood finished");
+    }
+
+    public String name(){
+        return "GreedyCrossExchangeMoveExplorer";
+    }
+    public void performMove(IVRMove m){
+        // DO NOTHING
+    }
+}
+class GreedyTwoOptMoveOneRouteExplorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMoveOneRouteExplorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    @Override
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (Point x = XR.startPoint(i); x != XR.endPoint(i); x = XR.next(x)) {
+                for (Point y = XR.next(x); y != XR.endPoint(i); y = XR.next(y)) {
+                    if (XR.checkPerformTwoOptMoveOneRoute(x, y)) {
+                        LexMultiValues eval = F.evaluateTwoOptMoveOneRoute(x, y);
+                        //System.out.println(name() + "::exploreNeighborhood(" + x.ID + "," + y.ID + "), eval = " +
+                        //eval.toString() + ", bestEval = " + bestEval.toString());
+
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new TwoOptMoveOneRoute(mgr, eval, x, y, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new TwoOptMoveOneRoute(mgr, eval, x, y, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+
+        }
+
+    }
+
+    @Override
+    public void performMove(IVRMove m) {
+        // TODO Auto-generated method stub
+
+    }
+
+    @Override
+    public String name() {
+        // TODO Auto-generated method stub
+        return "GreedyTwoOptMoveExplorer";
+    }
+
+}
+class FirstImprovementOrOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementOrOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementOrOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                if (i != j) {
+                    for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                        if(N.size() > 0) break;
+                        for (Point x2 = XR.next(x1); x2 != XR.getTerminatingPointOfRoute(i); x2 = XR.next(x2)) {
+                            if(N.size() > 0) break;
+                            for (Point y = XR.getStartingPointOfRoute(j); y != XR.getTerminatingPointOfRoute(j); y = XR.next(y)) {
+                                if (XR.checkPerformOrOptMove(x1, x2, y)) {
+                                    LexMultiValues eval = F.evaluateOrOptMove1(x1, x2, y);
+                                    if (eval.lt(bestEval)){
+                                        N.add(new OrOptMove1(mgr, eval, x1, x2, y));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementOrOptMove1Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyOrOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyOrOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyOrOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyOrOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyOrOptMove1Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = 1; j <= XR.getNbRoutes(); j++) {
+                if (i != j) {
+                    for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                        for (Point x2 = XR.next(x1); x2 != XR.getTerminatingPointOfRoute(i); x2 = XR.next(x2)) {
+                            for (Point y = XR.getStartingPointOfRoute(j); y != XR.getTerminatingPointOfRoute(j); y = XR.next(y)) {
+                                if (XR.checkPerformOrOptMove(x1, x2, y)) {
+                                    LexMultiValues eval = F.evaluateOrOptMove1(x1, x2, y);
+                                    if (eval.lt(bestEval)){
+                                        N.clear();
+                                        N.add(new OrOptMove1(mgr, eval, x1, x2, y, this));
+                                        bestEval.set(eval);
+                                    } else if (eval.eq(bestEval)) {
+                                        N.add(new OrOptMove1(mgr, eval, x1, x2, y, this));
+                                    }
+                                    if(firstImprovement){
+                                        if(eval.lt(0)) return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementOrOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementOrOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementOrOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                if (i != j) {
+                    for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                        if(N.size() > 0) break;
+                        for (Point x2 = XR.next(x1); x2 != XR.getTerminatingPointOfRoute(i); x2 = XR.next(x2)) {
+                            if(N.size() > 0) break;
+                            for (Point y = XR.getStartingPointOfRoute(j); y != XR.getTerminatingPointOfRoute(j); y = XR.next(y)) {
+                                if(N.size() > 0) break;
+                                if (XR.checkPerformOrOptMove(x1, x2, y)) {
+                                    LexMultiValues eval = F.evaluateOrOptMove2(x1, x2, y);
+                                    if (eval.lt(bestEval)){
+                                        N.add(new OrOptMove2(mgr, eval, x1, x2, y));
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public String name(){
+        return "FirstImprovementOrOptMove2Explorer";
+    }
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyOrOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyOrOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyOrOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyOrOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyOrOptMove2Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = 1; j <= XR.getNbRoutes(); j++) {
+                if (i != j) {
+                    for (Point x1 = XR.next(XR.getStartingPointOfRoute(i)); x1 != XR.getTerminatingPointOfRoute(i); x1 = XR.next(x1)) {
+                        for (Point x2 = XR.next(x1); x2 != XR.getTerminatingPointOfRoute(i); x2 = XR.next(x2)) {
+                            for (Point y = XR.getStartingPointOfRoute(j); y != XR.getTerminatingPointOfRoute(j); y = XR.next(y)) {
+                                if (XR.checkPerformOrOptMove(x1, x2, y)) {
+                                    LexMultiValues eval = F.evaluateOrOptMove2(x1, x2, y);
+                                    if (eval.lt(bestEval)){
+                                        N.clear();
+                                        N.add(new OrOptMove2(mgr, eval, x1, x2, y, this));
+                                        bestEval.set(eval);
+                                    } else if (eval.eq(bestEval)) {
+                                        N.add(new OrOptMove2(mgr, eval, x1, x2, y, this));
+                                    }
+                                    if(firstImprovement){
+                                        if(eval.lt(0)) return;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove1(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public String name(){
+        return "FirstImprovementTwoOptMove1Explorer";
+    }
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove1Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove1(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y, this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y, this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove2(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove2Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove2Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove2(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y, this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y, this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove3Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove3Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove3(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove3Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove3Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove3Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove3Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove3(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+
+class FirstImprovementTwoOptMove4Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove4Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove4(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove4Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove4Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove4Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove4Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove4(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove5Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove5Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove5(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove5Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove5Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove5Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove5Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove5(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove6Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove6Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove6(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove6Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove6Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove6Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove6Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove6(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove7Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove7Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove7(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementTwoOptMove7Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove7Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove7Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove7Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove7(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class FirstImprovementTwoOptMove8Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementTwoOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementTwoOptMove8Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            if(N.size() > 0) break;
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                if(N.size() > 0) break;
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    if(N.size() > 0) break;
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if(N.size() > 0) break;
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove8(x, y);
+                            if (eval.lt(bestEval)){
+                                N.add(new TwoOptMove(mgr, eval, x, y));
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public String name(){
+        return "FirstImprovementTwoOptMove8Explorer";
+    }
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+class GreedyTwoOptMove8Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyTwoOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyTwoOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyTwoOptMove8Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+    public String name(){
+        return "GreedyTwoOptMove8Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+        for (int i = 1; i <= XR.getNbRoutes(); i++) {
+            for (int j = i + 1; j <= XR.getNbRoutes(); j++) {
+                for (Point x = XR.next(XR.getStartingPointOfRoute(i)); XR.isClientPoint(x); x = XR.next(x)) {
+                    for (Point y = XR.next(XR.getStartingPointOfRoute(j)); XR.isClientPoint(y); y = XR.next(y)) {
+                        if (XR.checkPerformTwoOptMove(x, y)) {
+                            LexMultiValues eval = F.evaluateTwoOptMove8(x, y);
+                            if (eval.lt(bestEval)){
+                                N.clear();
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                                bestEval.set(eval);
+                            } else if (eval.eq(bestEval)) {
+                                N.add(new TwoOptMove(mgr, eval, x, y,this));
+                            }
+                            if(firstImprovement){
+                                if(eval.lt(0)) return;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+}
+
+class FirstImprovementThreeOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove1(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove1Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove1Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove1Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove1Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove1Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove1(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null &&  XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove2(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove2Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove2Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove2Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove2Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove2Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null &&  XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove2(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove3Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove3Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove3(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove3Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove3Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove3Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove3Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove3Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove3(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove4Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove4Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove4(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove5Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove4Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove4Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove4Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove4Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove4(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove5Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove5Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove5(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove5Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove5Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove5Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove5Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove5Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove5(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove6Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove6Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove6(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove6Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove6Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove6Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove6Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove6Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove6(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove7Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove7Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove7(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+    public String name(){
+        return "FirstImprovementThreeOptMove7Explorer";
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove7Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove7Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove7Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove7Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove7(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class FirstImprovementThreeOptMove8Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+
+    public FirstImprovementThreeOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+
+    public FirstImprovementThreeOptMove8Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        for (Point x : XR.getClientPoints()) {
+            if(N.size() > 0) break;
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                if(N.size() > 0) break;
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if(N.size() > 0) break;
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove8(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z));
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public String name(){
+        return "FirstImprovementThreeOptMove8Explorer";
+    }
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
+class GreedyThreeOptMove8Explorer implements INeighborhoodExplorer {
+    private VRManager mgr;
+    private VarRoutesVR XR;
+    private ISearch search;
+    private LexMultiFunctions F;
+    private LexMultiValues bestValue;
+    private boolean firstImprovement = true;
+    public GreedyThreeOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+    }
+    public GreedyThreeOptMove8Explorer(VarRoutesVR XR, LexMultiFunctions F, boolean firstImprovement) {
+        this.XR = XR;
+        this.F = F;
+        this.mgr = XR.getVRManager();
+        this.firstImprovement = firstImprovement;
+    }
+
+    public GreedyThreeOptMove8Explorer(ISearch search, VRManager mgr, LexMultiFunctions F){
+        this.search = search;
+        this.mgr = mgr;
+        this.XR = mgr.getVarRoutesVR();
+        this.F = F;
+        this.bestValue = search.getIncumbentValue();
+    }
+
+    public String name(){
+        return "GreedyThreeOptMove8Explorer";
+    }
+    public void exploreNeighborhood(Neighborhood N, LexMultiValues bestEval) {
+        // TODO Auto-generated method stub
+        if(firstImprovement && N.hasImprovement()){
+            //System.out.println(name() + "::exploreNeighborhood, has improvement --> RETURN");
+            return;
+        }
+
+        for (Point x : XR.getClientPoints()) {
+            for (Point y = XR.next(x); y != null && XR.isClientPoint(y); y = XR.next(y)) {
+                for (Point z = XR.next(y); XR.isClientPoint(z); z = XR.next(z)) {
+                    if (XR.checkPerformThreeOptMove(x, y, z)) {
+                        LexMultiValues eval = F.evaluateThreeOptMove8(x, y, z);
+                        if (eval.lt(bestEval)){
+                            N.clear();
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                            bestEval.set(eval);
+                        } else if (eval.eq(bestEval)) {
+                            N.add(new ThreeOptMove(mgr, eval, x, y, z, this));
+                        }
+                        if(firstImprovement){
+                            if(eval.lt(0)) return;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    public void performMove(IVRMove m){
+        //DO NOTHING
+    }
+
+}
 
 class DemoVRP {
+    /* sample input
+6 2 13
+0 0 0 0
+1 4 6 4
+2 6 7 2
+3 8 5 5
+4 10 10 7
+5 3 10 3
+6 2 1 2
+     */
 
     int K;// number of routes
     int N;// number of clients
