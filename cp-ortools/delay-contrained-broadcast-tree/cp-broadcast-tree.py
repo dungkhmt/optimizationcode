@@ -46,7 +46,7 @@ y = {} # y[i]: time-point node i receives data
 for i in range(1,n+1):
  for [j,t,c] in A[i]:
   x[i,j] = model.NewIntVar(0,1,'x(' + str(i) + ',' + str(j) + ')')
-  #print('create variable ',x[i,j])  
+  print('create variable ',x[i,j])  
 for i in range(1,n+1):
  y[i] = model.NewIntVar(0,10000,'y(' + str(i) + ')')
 
@@ -59,7 +59,7 @@ for i in range(1,n+1):
   model.Add(x[i,j] == 1).OnlyEnforceIf(b)
   model.Add(x[i,j] != 1).OnlyEnforceIf(b.Not())
   model.Add(y[j] == y[i] + t).OnlyEnforceIf(b)
-  
+  print(x[i,j],' = 1 -> ',y[j],' = ',y[i],' + ',t)
 model.Add(y[s] == 0) # time-point for node s = 0
 
 for i in range(1,n+1):
@@ -83,9 +83,9 @@ status = solver.Solve(model)
 if status == cp_model.OPTIMAL or status == cp_model.FEASIBLE:
  print(solver.Value(obj))
  
- #for [i,j,c] in E:
- # if solver.Value(x[i,j]) > 0:
- #  print('select link (',i,j,') cost = ',c)
+ for [i,j,c] in E:
+  if solver.Value(x[i,j]) > 0:
+   print('select link (',i,j,') cost = ',c)
 else:
  print('NO_SOLUTION')
  
