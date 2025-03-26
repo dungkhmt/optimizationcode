@@ -285,9 +285,16 @@ s.t. Ax = b
 x >= 0
 with:
 '''
+
+'''
 A = np.array([[1,1,1,1,1],[1,1,2,2,2],[1,1,0,0,0],[0,0,1,1,1]],dtype='double')
 b = np.array([5,8,2,3],dtype='double').T
 c = np.array([2,1,1,0,0],dtype='double')
+'''
+
+A = np.array([[3,-2,1],[2,3,0],[3,1,6]],dtype='double')
+b = np.array([5,8,4],dtype='double').T
+c = np.array([1,2,-5],dtype='double')
 
 
 TwoPhaseSolve(A,b,c)
