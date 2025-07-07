@@ -1,9 +1,14 @@
+import math
+
+
 def hhmmss_to_second(s: str) -> int:
     hour, minute, second = map(int, s.split(':'))
     return 3600 * hour + 60 * minute + second
 
 
-def second_to_hhmmss(second: int | float) -> str:
+def second_to_hhmmss(second) -> str:
+    second = math.ceil(second)
+
     hour = int(second / 3600)
     second %= 3600
     minute = int(second / 60)

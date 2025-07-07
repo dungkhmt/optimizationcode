@@ -375,7 +375,7 @@ def print_solution(solution, problem: Problem, index_manager, model):
 if __name__ == '__main__':
     search_parameters = pywrapcp.DefaultRoutingSearchParameters()
     search_parameters.local_search_metaheuristic = routing_enums_pb2.LocalSearchMetaheuristic.GUIDED_LOCAL_SEARCH
-    search_parameters.time_limit.FromSeconds(2)
+    search_parameters.time_limit.FromSeconds(10)
     search_parameters.log_search = True
 
     solve(Problem('dataset/10.4.10.txt'), search_parameters)

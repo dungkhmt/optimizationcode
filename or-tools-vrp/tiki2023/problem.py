@@ -19,7 +19,7 @@ class Truck:
         self.end_time = hhmmss_to_second(end_time)
         self.capacity = float(capacity)
         self.volume = float(volume)
-        self.velocity = float(velocity) / 3.6
+        self.velocity = float(velocity) / 3600
 
 
 @dataclass
@@ -63,10 +63,6 @@ class Problem:
     node_count: int
     truck_count: int
     request_count: int
-
-    _distances: list[list[int]]
-    trucks: list[Truck]
-    requests: list[Request]
 
     def __init__(self, filename):
         with open(filename) as file:

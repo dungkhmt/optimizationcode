@@ -1,9 +1,10 @@
 import functools
+import sys
 
 from ortools.constraint_solver import pywrapcp, routing_enums_pb2
 
 from problem import Problem
-from solution import Solution
+from solution import analyze_solution_quality
 
 FLOAT_SCALING_FACTOR = 1e5
 WAIT_TIME_MAX = int(24 * 3600 * FLOAT_SCALING_FACTOR)
@@ -148,14 +149,16 @@ def solve(problem: Problem, search_parameters):
         )
 
     # Disjunction, Objective
-    for pickup_node in range(problem.request_count):
-        model.AddDisjunction([index_manager.NodeToIndex(pickup_node)], int(1e17 / problem.request_count))
+    for pickup_node in range(2 * problem.request_count):
+        model.AddDisjunction([index_manager.NodeToIndex(pickup_node)], int(1e17 / problem.request_count / 2))
 
     model.SetFixedCostOfAllVehicles(int(1e14 / problem.truck_count))
     time_dimension.SetSpanCostCoefficientForAllVehicles(1)
 
     # Solve
     solution = model.SolveWithParameters(search_parameters)
+
+    print(model.status())
     print_solution(problem, index_manager, model, solution)
 
     return to_solution(problem, index_manager, model, solution)
@@ -167,6 +170,7 @@ def print_solution(problem, manager, model, solution):
     volume_dimension = model.GetDimensionOrDie(VOLUME_DIMENSION)
 
     print(f"Objective: {solution.ObjectiveValue()}")
+    print(f"Score: {(1e17 - solution.ObjectiveValue())/1e8}")
 
     for vehicle_id in range(problem.truck_count):
         print(f"Route for vehicle {vehicle_id}:")
@@ -183,7 +187,7 @@ def print_solution(problem, manager, model, solution):
             volume_var = volume_dimension.CumulVar(index)
 
             print(f"{manager.IndexToNode(index)}"
-                  f", time: {solution.Min(time_var)}"
+                  f", time: {solution.Value(time_var)}"
                   f", weight: {solution.Value(weight_var)}"
                   f", volume: {solution.Value(volume_var)}"
                   )
@@ -191,12 +195,22 @@ def print_solution(problem, manager, model, solution):
             index = solution.Value(model.NextVar(index))
 
             if model.IsEnd(index):
+                time_var = time_dimension.CumulVar(index)
+                weight_var = weight_dimension.CumulVar(index)
+                volume_var = volume_dimension.CumulVar(index)
+
+                print(f"{manager.IndexToNode(index)}"
+                      f", time: {solution.Value(time_var)}"
+                      f", weight: {solution.Value(weight_var)}"
+                      f", volume: {solution.Value(volume_var)}"
+                      )
+
                 print()
                 break
 
 
-def to_solution(problem, manager, model: pywrapcp.RoutingModel, solution) -> Solution:
-    result = Solution()
+def to_solution(problem, manager, model: pywrapcp.RoutingModel, solution):
+    result = []
 
     for vehicle_id in range(problem.truck_count):
         if not model.IsVehicleUsed(solution, vehicle_id):
@@ -231,3 +245,4 @@ if __name__ == '__main__':
 
     sol = solve(prb, param)
     print(sol)
+    analyze_solution_quality(sol, prb)
